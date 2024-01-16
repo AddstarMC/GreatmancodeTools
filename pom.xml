@@ -5,7 +5,7 @@
 
 	<groupId>com.greatmancode</groupId>
 	<artifactId>tools</artifactId>
-	<version>1.4.2-SNAPSHOT</version>
+	<version>1.4.3-SNAPSHOT</version>
 	<name>GreatmancodeTools</name>
 	<inceptionYear>2013</inceptionYear>
 	<url>https://github.com/greatman/GreatmancodeTools</url>
@@ -50,14 +50,14 @@
 		</repository>
 		<repository>
 			<id>addstar-repo</id>
-			<url>http://maven.addstar.com.au/artifactory/ext-release-local</url>
+			<url>https://maven.addstar.com.au/artifactory/ext-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 		<repository>
 			<id>addstar-snapshot-repo</id>
-			<url>http://maven.addstar.com.au/artifactory/ext-snapshot-local</url>
+			<url>https://maven.addstar.com.au/artifactory/ext-snapshot-local</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -68,12 +68,12 @@
 
 		<repository>
 			<id>max</id>
-			<url>http://repo.mvdw-software.be/content/groups/public/</url>
+			<url>https://repo.mvdw-software.com/repository/public/</url>
 		</repository>
 		<repository>
 			<id>vault-repo</id>
 			<name>Public Releases</name>
-			<url>http://nexus.hc.to/content/repositories/pub_releases/</url>
+			<url>https://nexus.hc.to/content/repositories/pub_releases/</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -124,7 +124,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
 		<dependency>

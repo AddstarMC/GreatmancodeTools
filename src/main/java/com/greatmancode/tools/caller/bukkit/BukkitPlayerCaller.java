@@ -60,6 +60,7 @@ public class BukkitPlayerCaller extends PlayerCaller {
 
     @Override
     public boolean checkPermission(UUID uuid, String perm) {
+        if (uuid == null) return true; // assume console
         Player p = getBukkitPlayer(uuid);
         if (p != null) {
             return (p.isOp() || p.hasPermission(perm));

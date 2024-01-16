@@ -68,7 +68,7 @@ public class SubCommand implements Command {
                             commandHandler.getServerCaller().getPlayerCaller().sendMessage(sender, "{{DARK_RED}}Only players can do this command!",getName());
                         }
                     }
-                    if(commandHandler.getServerCaller().getPlayerCaller().checkPermission(sender.getUuid(),cmd.getPermissionNode())){
+                    if(sender instanceof ConsoleCommandSender || commandHandler.getServerCaller().getPlayerCaller().checkPermission(sender.getUuid(),cmd.getPermissionNode())){
                             if (args.length >= cmd.minArgs() && args.length <= cmd.maxArgs()) {
                                 cmd.execute(sender, args);
                             } else {

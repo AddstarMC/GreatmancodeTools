@@ -163,6 +163,8 @@ public class BukkitServerCaller extends ServerCaller {
 
     @Override
     public void setVaultEconomyHook(VaultEconomy instance, com.greatmancode.tools.utils.ServicePriority priority) {
-        Bukkit.getServicesManager().register(Economy.class, instance, (Plugin) getLoader(), ServicePriority.valueOf(priority.name().toUpperCase()));
+        // Bukkit's ServicePriority constants are mixed case (Highest, Normal, ...),
+        // so upper-casing the name here never resolved and always threw.
+        Bukkit.getServicesManager().register(Economy.class, instance, (Plugin) getLoader(), ServicePriority.valueOf(priority.name()));
     }
 }

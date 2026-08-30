@@ -5,7 +5,7 @@
 
 	<groupId>com.greatmancode</groupId>
 	<artifactId>tools</artifactId>
-	<version>1.4.4-SNAPSHOT</version>
+	<version>1.4.5-SNAPSHOT</version>
 	<name>GreatmancodeTools</name>
 	<inceptionYear>2013</inceptionYear>
 	<url>https://github.com/greatman/GreatmancodeTools</url>

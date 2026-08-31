@@ -63,10 +63,13 @@ public class SubCommand implements Command {
                 }
                 if (entry instanceof CommandExecutor) {
                     CommandExecutor cmd = ((CommandExecutor) entry);
-                    if(sender instanceof ConsoleCommandSender){
-                        if(cmd.playerOnly()){
-                            commandHandler.getServerCaller().getPlayerCaller().sendMessage(sender, "{{DARK_RED}}Only players can do this command!",getName());
-                        }
+                    if(sender instanceof ConsoleCommandSender && cmd.playerOnly()){
+                        // This used to fall through and run the command anyway,
+                        // so the console got the refusal message and the effect.
+                        // These commands read the sender's world and balance, so
+                        // from the console they acted on an empty world group.
+                        commandHandler.getServerCaller().getPlayerCaller().sendMessage(sender, "{{DARK_RED}}Only players can do this command!",getName());
+                        return;
                     }
                     if(sender instanceof ConsoleCommandSender || commandHandler.getServerCaller().getPlayerCaller().checkPermission(sender.getUuid(),cmd.getPermissionNode())){
                             if (args.length >= cmd.minArgs() && args.length <= cmd.maxArgs()) {

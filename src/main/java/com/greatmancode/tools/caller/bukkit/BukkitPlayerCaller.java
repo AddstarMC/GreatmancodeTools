@@ -47,15 +47,13 @@ public class BukkitPlayerCaller extends PlayerCaller {
     @Deprecated
     @Override
     public boolean checkPermission(String playerName, String perm) {
-        boolean result;
         Player p = ((BukkitLoader) getCaller().getLoader()).getServer().getPlayerExact(playerName);
         if (p != null) {
-            result = p.isOp() || p.hasPermission(perm);
-        } else {
-            // It's the console
-            result = true;
+            return p.isOp() || p.hasPermission(perm);
         }
-        return result;
+        // A name that does not match anybody online is not necessarily the
+        // console, so do not hand out the permission on that assumption.
+        return false;
     }
 
     @Override
@@ -64,13 +62,12 @@ public class BukkitPlayerCaller extends PlayerCaller {
         Player p = getBukkitPlayer(uuid);
         if (p != null) {
             return (p.isOp() || p.hasPermission(perm));
-        } else {
-//            OfflinePlayer off = getOfflinePlayer(uuid);
-//            if(off != null){
-//                return false;
-//            }
-            return true;
         }
+        // The uuid does not belong to anybody online here, so there is nobody
+        // to ask. This used to return true, which granted the permission to
+        // any sender we could not resolve; these nodes guard other people's
+        // accounts, so the safe answer is no. Console is handled above.
+        return false;
     }
     
     @Deprecated

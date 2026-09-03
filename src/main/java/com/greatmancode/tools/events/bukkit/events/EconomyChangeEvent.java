@@ -18,6 +18,7 @@
  */
 package com.greatmancode.tools.events.bukkit.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -27,6 +28,10 @@ public class EconomyChangeEvent extends Event {
     private final double amount;
 
     public EconomyChangeEvent(String account, double amount) {
+        // Balance changes reach us from whatever thread the caller used. Vault
+        // has no main-thread requirement, so plugins that batch payments fire
+        // these from async tasks.
+        super(!Bukkit.isPrimaryThread());
         this.account = account;
         this.amount = amount;
     }

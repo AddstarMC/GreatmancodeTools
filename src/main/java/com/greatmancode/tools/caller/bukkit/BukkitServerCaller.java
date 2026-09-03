@@ -35,6 +35,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
 
 import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -147,7 +148,15 @@ public class BukkitServerCaller extends ServerCaller {
     @Override
     public void throwEvent(Event event) {
         if (event instanceof EconomyChangeEvent) {
-            ((BukkitLoader) loader).getServer().getPluginManager().callEvent(new com.greatmancode.tools.events.bukkit.events.EconomyChangeEvent(((EconomyChangeEvent) event).getAccount(), ((EconomyChangeEvent) event).getAmount()));
+            try {
+                ((BukkitLoader) loader).getServer().getPluginManager().callEvent(new com.greatmancode.tools.events.bukkit.events.EconomyChangeEvent(((EconomyChangeEvent) event).getAccount(), ((EconomyChangeEvent) event).getAmount()));
+            } catch (Throwable t) {
+                // The balance has already been written by the time we get here.
+                // A listener blowing up must not propagate back to the caller,
+                // or it sees a failure for a transaction that did commit.
+                getLogger().log(Level.SEVERE, "A listener failed while handling an economy change for account "
+                        + ((EconomyChangeEvent) event).getAccount() + ". The balance change itself was applied.", t);
+            }
         }
     }
 
